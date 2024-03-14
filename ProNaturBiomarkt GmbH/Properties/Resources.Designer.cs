@@ -63,6 +63,16 @@ namespace ProNaturBiomarkt_GmbH.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GroceryImg {
+            get {
+                object obj = ResourceManager.GetObject("GroceryImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Logo_Kaiser_Karl_Klinik_ohne_Text_RGB {
             get {
                 object obj = ResourceManager.GetObject("Logo_Kaiser-Karl-Klinik_ohne_Text_RGB", resourceCulture);
