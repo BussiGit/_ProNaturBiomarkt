@@ -37,11 +37,11 @@ namespace ProNaturBiomarkt_GmbH
             {
                 loadingBarTimer.Stop();
                 //hide Loadingscreen
-                //this.Hide();
+                this.Hide();
 
                 //show main menu screen
                 MainMenuScreen mainMenuScreen = new MainMenuScreen();
-                //mainMenuScreen.Show();
+                mainMenuScreen.Show();
             }
         }
     }
