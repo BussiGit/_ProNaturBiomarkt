@@ -28,21 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnProducts = new System.Windows.Forms.Button();
             this.btnBill = new System.Windows.Forms.Button();
+            this.btnProducts = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnProducts
-            // 
-            this.btnProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProducts.ForeColor = System.Drawing.Color.White;
-            this.btnProducts.Image = global::ProNaturBiomarkt_GmbH.Properties.Resources.BtnImgProducts;
-            this.btnProducts.Location = new System.Drawing.Point(12, 27);
-            this.btnProducts.Name = "btnProducts";
-            this.btnProducts.Size = new System.Drawing.Size(275, 125);
-            this.btnProducts.TabIndex = 0;
-            this.btnProducts.Text = "Produkte verwalten";
-            this.btnProducts.UseVisualStyleBackColor = true;
             // 
             // btnBill
             // 
@@ -56,6 +44,19 @@
             this.btnBill.Text = "Rechnung stellen";
             this.btnBill.UseVisualStyleBackColor = true;
             // 
+            // btnProducts
+            // 
+            this.btnProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProducts.ForeColor = System.Drawing.Color.White;
+            this.btnProducts.Image = global::ProNaturBiomarkt_GmbH.Properties.Resources.BtnImgProducts;
+            this.btnProducts.Location = new System.Drawing.Point(12, 27);
+            this.btnProducts.Name = "btnProducts";
+            this.btnProducts.Size = new System.Drawing.Size(275, 125);
+            this.btnProducts.TabIndex = 0;
+            this.btnProducts.Text = "Produkte verwalten";
+            this.btnProducts.UseVisualStyleBackColor = true;
+            this.btnProducts.Click += new System.EventHandler(this.btnProducts_Click);
+            // 
             // MainMenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -64,6 +65,8 @@
             this.ClientSize = new System.Drawing.Size(590, 178);
             this.Controls.Add(this.btnBill);
             this.Controls.Add(this.btnProducts);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainMenuScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hauptmenü";
