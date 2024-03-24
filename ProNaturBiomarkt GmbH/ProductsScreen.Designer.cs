@@ -41,6 +41,7 @@
             this.btnProductClear = new System.Windows.Forms.Button();
             this.btnProductDelete = new System.Windows.Forms.Button();
             this.productsDGV = new System.Windows.Forms.DataGridView();
+            this.btnProductBackToMainMenu = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.productsDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -217,12 +218,26 @@
             this.productsDGV.TabIndex = 13;
             this.productsDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.productsDGV_CellContentClick);
             // 
+            // btnProductBackToMainMenu
+            // 
+            this.btnProductBackToMainMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnProductBackToMainMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProductBackToMainMenu.ForeColor = System.Drawing.Color.White;
+            this.btnProductBackToMainMenu.Location = new System.Drawing.Point(447, 144);
+            this.btnProductBackToMainMenu.Name = "btnProductBackToMainMenu";
+            this.btnProductBackToMainMenu.Size = new System.Drawing.Size(75, 23);
+            this.btnProductBackToMainMenu.TabIndex = 14;
+            this.btnProductBackToMainMenu.Text = "Zurück";
+            this.btnProductBackToMainMenu.UseVisualStyleBackColor = false;
+            this.btnProductBackToMainMenu.Click += new System.EventHandler(this.btnProductBackToMainMenu_Click);
+            // 
             // Produkte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ProNaturBiomarkt_GmbH.Properties.Resources.ImgBgProducts;
             this.ClientSize = new System.Drawing.Size(799, 461);
+            this.Controls.Add(this.btnProductBackToMainMenu);
             this.Controls.Add(this.productsDGV);
             this.Controls.Add(this.btnProductDelete);
             this.Controls.Add(this.btnProductClear);
@@ -262,5 +277,6 @@
         private System.Windows.Forms.Button btnProductClear;
         private System.Windows.Forms.Button btnProductDelete;
         private System.Windows.Forms.DataGridView productsDGV;
+        private System.Windows.Forms.Button btnProductBackToMainMenu;
     }
 }

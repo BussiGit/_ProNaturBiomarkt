@@ -50,7 +50,7 @@ namespace ProNaturBiomarkt_GmbH
             //In die Datenbank speichern
             string querry = string.Format("insert into Products values('{0}','{1}','{2}','{3}')", productName, productBrand, productCategorie, productPrice);
             ExecuteQuerry(querry);
-
+  
             //Produktliste anzeigen
             ShowProducts();
             ClearAllFields();
@@ -153,6 +153,14 @@ namespace ProNaturBiomarkt_GmbH
             textBoxProductBrand.Text = productsDGV.SelectedRows[0].Cells[2].Value.ToString();
             comboBoxProductCategrry.Text = productsDGV.SelectedRows[0].Cells[3].Value.ToString();
             textBoxProductPrice.Text = productsDGV.SelectedRows[0].Cells[4].Value.ToString();
+        }
+
+        private void btnProductBackToMainMenu_Click(object sender, EventArgs e)
+        {
+            MainMenuScreen mainMenuScreen = new MainMenuScreen();
+            mainMenuScreen.Show();
+
+            this.Hide();
         }
     }
 }
