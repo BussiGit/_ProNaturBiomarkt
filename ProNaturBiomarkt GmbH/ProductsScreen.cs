@@ -14,6 +14,9 @@ namespace ProNaturBiomarkt_GmbH
 {
     public partial class Produkte : Form
     {
+        //Variable für die zuletzt ausgewählte ID
+        private int lastSelectetProductKey;
+
         //Connection-String
         private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server Management Studio\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
         public Produkte()
@@ -29,15 +32,42 @@ namespace ProNaturBiomarkt_GmbH
         {
             var pruductName = textBoxProductName.Text;
 
+            if(textBoxProductName.Text == "" 
+                || textBoxProductBrand.Text == "" 
+                || comboBoxProductCategrry.Text == "" 
+                || textBoxProductPrice.Text == "")
+            {
+                MessageBox.Show("Bitte fülle alle Werte aus.");
+                return;
+            }
+
             //save product name in database
+            string productName = textBoxProductName.Text;
+            string productBrand = textBoxProductBrand.Text;
+            string productCategorie = comboBoxProductCategrry.Text;
+            string productPrice = textBoxProductPrice.Text;
+
+            //In die Datenbank speichern
+            string querry = string.Format("insert into Products values('{0}','{1}','{2}','{3}')", productName, productBrand, productCategorie, productPrice);
+            ExecuteQuerry(querry);
 
             //Produktliste anzeigen
             ShowProducts();
+            ClearAllFields();
 
         }
 
         private void btnProductEdit_Click(object sender, EventArgs e)
         {
+            if (lastSelectetProductKey == 0)
+            {
+                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!");
+                return;
+            }
+
+            string querry = string.Format("update Products set Name='{0}', Brand='{1}', Category='{2}', Price='{3}' where Id={4}"
+                ,textBoxProductName.Text, textBoxProductBrand.Text, comboBoxProductCategrry.Text, textBoxProductPrice.Text, lastSelectetProductKey);
+            ExecuteQuerry(querry);
 
             //Produktliste anzeigen
             ShowProducts();
@@ -51,7 +81,23 @@ namespace ProNaturBiomarkt_GmbH
 
         private void btnProductDelete_Click(object sender, EventArgs e)
         {
-            //Produktliste anzeigen
+            if (lastSelectetProductKey == 0)
+            {
+                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!");
+                return;
+            }
+
+            else
+            {
+            //In die Datenbank speichern
+            string querry = string.Format("delete from Products where Id={0};", lastSelectetProductKey);
+            ExecuteQuerry(querry);
+            }
+
+            //Auswahl leeren
+            ClearAllFields();
+
+            //Produktliste aktualisieren und anzeigen
             ShowProducts();
         }
 
@@ -80,6 +126,14 @@ namespace ProNaturBiomarkt_GmbH
             databaseConnection.Close();
         }
 
+        private void ExecuteQuerry(string querry)
+        {
+            //In die Datenbank speichern
+            databaseConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand(querry, databaseConnection);
+            sqlCommand.ExecuteNonQuery();
+            databaseConnection.Close();
+        }
 
         private void ClearAllFields()
         {
@@ -89,6 +143,16 @@ namespace ProNaturBiomarkt_GmbH
             textBoxProductPrice.Text = "";
             comboBoxProductCategrry.Text = "";
             comboBoxProductCategrry.SelectedItem = null;
+        }
+
+        private void productsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Auswahl einlesen
+            lastSelectetProductKey = (int)productsDGV.SelectedRows[0].Cells[0].Value;
+            textBoxProductName.Text = productsDGV.SelectedRows[0].Cells[1].Value.ToString();
+            textBoxProductBrand.Text = productsDGV.SelectedRows[0].Cells[2].Value.ToString();
+            comboBoxProductCategrry.Text = productsDGV.SelectedRows[0].Cells[3].Value.ToString();
+            textBoxProductPrice.Text = productsDGV.SelectedRows[0].Cells[4].Value.ToString();
         }
     }
 }
