@@ -18,7 +18,7 @@ namespace ProNaturBiomarkt_GmbH
         private int lastSelectetProductKey;
 
         //Connection-String
-        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server Management Studio\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
+        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
         public Produkte()
         {
             InitializeComponent();

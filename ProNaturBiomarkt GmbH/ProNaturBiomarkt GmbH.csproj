@@ -140,15 +140,6 @@
     <None Include="Resources\ImgBgProducts.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pro-Natur-Biomarkt GmbH.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pro-Natur-Biomarkt GmbH_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Pro-Natur-Biomarkt GmbH.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.8 %28x86 und x64%29</ProductName>
