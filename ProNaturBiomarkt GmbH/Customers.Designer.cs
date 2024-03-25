@@ -36,7 +36,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxCustomerHouseNumber = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.CustomerPLZ = new System.Windows.Forms.TextBox();
+            this.textBoxCustomerPLZ = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxCustomerCity = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -138,15 +138,15 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Nummer";
             // 
-            // CustomerPLZ
+            // textBoxCustomerPLZ
             // 
-            this.CustomerPLZ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.CustomerPLZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomerPLZ.ForeColor = System.Drawing.Color.White;
-            this.CustomerPLZ.Location = new System.Drawing.Point(119, 126);
-            this.CustomerPLZ.Name = "CustomerPLZ";
-            this.CustomerPLZ.Size = new System.Drawing.Size(89, 20);
-            this.CustomerPLZ.TabIndex = 11;
+            this.textBoxCustomerPLZ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.textBoxCustomerPLZ.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxCustomerPLZ.ForeColor = System.Drawing.Color.White;
+            this.textBoxCustomerPLZ.Location = new System.Drawing.Point(119, 126);
+            this.textBoxCustomerPLZ.Name = "textBoxCustomerPLZ";
+            this.textBoxCustomerPLZ.Size = new System.Drawing.Size(89, 20);
+            this.textBoxCustomerPLZ.TabIndex = 11;
             // 
             // label5
             // 
@@ -184,16 +184,18 @@
             // 
             // lblCustomerNumber
             // 
+            this.lblCustomerNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCustomerNumber.AutoSize = true;
             this.lblCustomerNumber.BackColor = System.Drawing.Color.Transparent;
             this.lblCustomerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCustomerNumber.ForeColor = System.Drawing.Color.White;
             this.lblCustomerNumber.Location = new System.Drawing.Point(738, 12);
             this.lblCustomerNumber.Name = "lblCustomerNumber";
+            this.lblCustomerNumber.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblCustomerNumber.Size = new System.Drawing.Size(49, 13);
             this.lblCustomerNumber.TabIndex = 14;
             this.lblCustomerNumber.Text = "000000";
-            this.lblCustomerNumber.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblCustomerNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnCustomerDelete
             // 
@@ -268,6 +270,7 @@
             this.customerDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.customerDGV.Size = new System.Drawing.Size(771, 244);
             this.customerDGV.TabIndex = 19;
+            this.customerDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.customerDGV_CellContentClick);
             // 
             // btnCustomerBackToMainMenu
             // 
@@ -297,7 +300,7 @@
             this.Controls.Add(this.lblCustomerNumber);
             this.Controls.Add(this.textBoxCustomerCity);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.CustomerPLZ);
+            this.Controls.Add(this.textBoxCustomerPLZ);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxCustomerHouseNumber);
             this.Controls.Add(this.label4);
@@ -326,7 +329,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxCustomerHouseNumber;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox CustomerPLZ;
+        private System.Windows.Forms.TextBox textBoxCustomerPLZ;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxCustomerCity;
         private System.Windows.Forms.Label label6;

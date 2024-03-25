@@ -30,7 +30,6 @@ namespace ProNaturBiomarkt_GmbH
 
         private void btnProductSave_Click(object sender, EventArgs e)
         {
-            var pruductName = textBoxProductName.Text;
 
             if(textBoxProductName.Text == "" 
                 || textBoxProductBrand.Text == "" 
@@ -48,13 +47,13 @@ namespace ProNaturBiomarkt_GmbH
             string productPrice = textBoxProductPrice.Text;
 
             //In die Datenbank speichern
-            string querry = string.Format("insert into Products values('{0}','{1}','{2}','{3}')", productName, productBrand, productCategorie, productPrice);
+            string querry = string.Format("insert into Products values('{0}','{1}','{2}','{3}')", 
+                productName, productBrand, productCategorie, productPrice);
             ExecuteQuerry(querry);
   
             //Produktliste anzeigen
             ShowProducts();
             ClearAllFields();
-
         }
 
         private void btnProductEdit_Click(object sender, EventArgs e)
