@@ -19,15 +19,18 @@ namespace ProNaturBiomarkt_GmbH
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
+            //Produkteverwaltung anzeigen
+
             Produkte productsScreen = new Produkte();
             productsScreen.Show();
 
             this.Hide();
-
         }
 
         private void btnCustomerManagement_Click(object sender, EventArgs e)
         {
+            //Kundenverwaltung anzeigen
+
             Customers customersScreen = new Customers();
             customersScreen.Show();
 
@@ -36,6 +39,8 @@ namespace ProNaturBiomarkt_GmbH
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
+            //Probramm beenden
+
             this.Close();
             Application.Exit();
         }

@@ -14,7 +14,8 @@ namespace ProNaturBiomarkt_GmbH
     public partial class Customers : Form
     {
         //Variable für die zuletzt ausgewählte ID
-        private int lastSelectetCustomerNumber;
+        private int lastSelectetKey;                    //ID des aktuell ausgewählten Datensatzes
+        private string nameTable = "Customers";         //Name der Tabelle in der Datenbank
 
         //Connection-String
         private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
@@ -22,10 +23,12 @@ namespace ProNaturBiomarkt_GmbH
         {
             InitializeComponent();
 
-            //Produktliste anzeigen
-            ShowCustomers();
+            //Kundenliste anzeigen
+            ShowTable();
         }
 
+        //########################################################################################################################
+        //BUTTONS
         private void btnCustomerSave_Click(object sender, EventArgs e)
         {
             if (textBoxCustomerLastName.Text == ""
@@ -35,7 +38,8 @@ namespace ProNaturBiomarkt_GmbH
                 || textBoxCustomerPLZ.Text == ""
                 || textBoxCustomerCity.Text == "")
             {
-                MessageBox.Show("Bitte fülle alle Werte aus.");
+                MessageBox.Show("Bitte fülle alle Felder aus.",
+                    "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                 return;
             }
 
@@ -48,60 +52,60 @@ namespace ProNaturBiomarkt_GmbH
             string customerCity = textBoxCustomerCity.Text;
 
             //In die Datenbank speichern
-            string querry = string.Format("insert into Customers values('{0}','{1}','{2}','{3}','{4}','{5}')", 
-                customerLastName, customerPreName, customerSteet, customerHouseNumber, customerPLZ, customerCity);
+            string querry = string.Format("insert into {0} values('{1}','{2}','{3}','{4}','{5}','{6}')", 
+                nameTable, customerLastName, customerPreName, customerSteet, customerHouseNumber, customerPLZ, customerCity);
             ExecuteQuerry(querry);
 
-            //Produktliste anzeigen
-            ShowCustomers();
+            //Kundenliste anzeigen
+            ShowTable();
             ClearAllFields();
-        }
-
-        private void ExecuteQuerry(string querry)
-        {
-            //In die Datenbank speichern
-            databaseConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand(querry, databaseConnection);
-            sqlCommand.ExecuteNonQuery();
-            databaseConnection.Close();
-        }
-
-        private void ClearAllFields()
-        {
-            //Auswahlfelder leeren
-            textBoxCustomerLastName.Text = "";
-            textBoxCustomerPreName.Text = "";
-            textBoxCustomerStreet.Text = "";
-            textBoxCustomerHouseNumber.Text = "";
-            textBoxCustomerPLZ.Text = "";
-            textBoxCustomerCity.Text = "";
         }
 
         private void btnCustomerEdit_Click(object sender, EventArgs e)
         {
-            if (lastSelectetCustomerNumber == 0)
+            if (lastSelectetKey == 0)
             {
-                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!");
+                MessageBox.Show("Bitte wähle zuerst einen Kunden aus!",
+                    "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            string querry = string.Format("update Customers set LastName='{0}', PreName='{1}', Street='{2}', HouseNumber='{3}', PLZ='{4}', City='{5}' where CustomerNumber={4}"
-                , textBoxCustomerLastName.Text, textBoxCustomerPreName.Text, textBoxCustomerStreet.Text, 
-                textBoxCustomerHouseNumber.Text, textBoxCustomerPLZ.Text, textBoxCustomerCity.Text, lastSelectetCustomerNumber);
+            string querry = string.Format("update {0} set LastName='{1}', PreName='{2}', Street='{3}', HouseNumber='{4}', PLZ='{5}', City='{6}' where CustomerNumber={7}",
+                nameTable, textBoxCustomerLastName.Text, textBoxCustomerPreName.Text, textBoxCustomerStreet.Text,
+                textBoxCustomerHouseNumber.Text, textBoxCustomerPLZ.Text, textBoxCustomerCity.Text, lastSelectetKey);
             ExecuteQuerry(querry);
 
-            //Produktliste anzeigen
-            ShowCustomers();
+            //Kundenliste anzeigen
+            ShowTable();
         }
 
         private void btnCustomerClear_Click(object sender, EventArgs e)
         {
-
+            //Alle Feldinhalte löschen
+            ClearAllFields();
         }
 
         private void btnCustomerDelete_Click(object sender, EventArgs e)
         {
+            if (lastSelectetKey == 0)
+            {
+                MessageBox.Show("Bitte wähle zuerst ein Kunden aus!",
+                    "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            else
+            {
+                //In die Datenbank speichern
+                string querry = string.Format("delete from {0} where CustomerNumber={1};", nameTable, lastSelectetKey);
+                ExecuteQuerry(querry);
+            }
+
+            //Auswahl leeren
+            ClearAllFields();
+
+            //Kundenliste aktualisieren und anzeigen
+            ShowTable();
         }
 
         private void btnCustomerBackToMainMenu_Click(object sender, EventArgs e)
@@ -111,16 +115,20 @@ namespace ProNaturBiomarkt_GmbH
 
             this.Hide();
         }
+        //BUTTONS
+        //########################################################################################################################
 
-        private void ShowCustomers()
+        //########################################################################################################################
+        //DATENBANKHANDLING
+        private void ShowTable()
         {
-//          ##  Produktliste anzeigen ##
+            //##  Datenbanktabelle anzeigen ##
 
             //Datenbank öffnen
             databaseConnection.Open();
 
             //Abfrage definieren und übergeben
-            string query = "select * from Customers";
+            string query = string.Format("select * from {0}", nameTable);
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, databaseConnection);
 
             //Abfrage starten
@@ -137,10 +145,23 @@ namespace ProNaturBiomarkt_GmbH
             databaseConnection.Close();
         }
 
+        private void ExecuteQuerry(string querry)
+        {
+            //In die Datenbank speichern
+            databaseConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand(querry, databaseConnection);
+            sqlCommand.ExecuteNonQuery();
+            databaseConnection.Close();
+        }
+        //DATENBANKHANDLING
+        //########################################################################################################################
+
+        //########################################################################################################################
+        //WINDOWHANDLING
         private void customerDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             //Auswahl einlesen
-            lastSelectetCustomerNumber = (int)customerDGV.SelectedRows[0].Cells[0].Value;
+            lastSelectetKey = (int)customerDGV.SelectedRows[0].Cells[0].Value;
             textBoxCustomerPreName.Text = customerDGV.SelectedRows[0].Cells[1].Value.ToString();
             textBoxCustomerLastName.Text = customerDGV.SelectedRows[0].Cells[2].Value.ToString();
             textBoxCustomerStreet.Text = customerDGV.SelectedRows[0].Cells[3].Value.ToString();
@@ -150,5 +171,19 @@ namespace ProNaturBiomarkt_GmbH
 
             lblCustomerNumber.Text = customerDGV.SelectedRows[0].Cells[0].Value.ToString();
         }
+
+        private void ClearAllFields()
+        {
+            //Auswahlfelder leeren
+            textBoxCustomerLastName.Text = "";
+            textBoxCustomerPreName.Text = "";
+            textBoxCustomerStreet.Text = "";
+            textBoxCustomerHouseNumber.Text = "";
+            textBoxCustomerPLZ.Text = "";
+            textBoxCustomerCity.Text = "";
+            lblCustomerNumber.Text = "";
+        }
+        //WINDOWHANDLING
+        //########################################################################################################################
     }
 }

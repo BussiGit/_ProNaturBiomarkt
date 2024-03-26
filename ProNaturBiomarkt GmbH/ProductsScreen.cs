@@ -15,7 +15,8 @@ namespace ProNaturBiomarkt_GmbH
     public partial class Produkte : Form
     {
         //Variable für die zuletzt ausgewählte ID
-        private int lastSelectetProductKey;
+        private int lastSelectetKey;                   //ID des aktuell ausgewählten Datensatzes
+        private string nameTable = "Products";         //Name der Tabelle in der Datenbank
 
         //Connection-String
         private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
@@ -24,10 +25,11 @@ namespace ProNaturBiomarkt_GmbH
             InitializeComponent();
 
             //Produktliste anzeigen
-            ShowProducts();
+            ShowTable();
         }
 
-
+        //########################################################################################################################
+        //BUTTONS
         private void btnProductSave_Click(object sender, EventArgs e)
         {
 
@@ -36,7 +38,8 @@ namespace ProNaturBiomarkt_GmbH
                 || comboBoxProductCategrry.Text == "" 
                 || textBoxProductPrice.Text == "")
             {
-                MessageBox.Show("Bitte fülle alle Werte aus.");
+                MessageBox.Show("Bitte fülle alle Felder aus.",
+                    "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -47,29 +50,30 @@ namespace ProNaturBiomarkt_GmbH
             string productPrice = textBoxProductPrice.Text;
 
             //In die Datenbank speichern
-            string querry = string.Format("insert into Products values('{0}','{1}','{2}','{3}')", 
-                productName, productBrand, productCategorie, productPrice);
+            string querry = string.Format("insert into {0} values('{1}','{2}','{3}','{4}')", 
+                nameTable, productName, productBrand, productCategorie, productPrice);
             ExecuteQuerry(querry);
   
             //Produktliste anzeigen
-            ShowProducts();
+            ShowTable();
             ClearAllFields();
         }
 
         private void btnProductEdit_Click(object sender, EventArgs e)
         {
-            if (lastSelectetProductKey == 0)
+            if (lastSelectetKey == 0)
             {
-                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!");
+                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!",
+                    "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            string querry = string.Format("update Products set Name='{0}', Brand='{1}', Category='{2}', Price='{3}' where Id={4}"
-                ,textBoxProductName.Text, textBoxProductBrand.Text, comboBoxProductCategrry.Text, textBoxProductPrice.Text, lastSelectetProductKey);
+            string querry = string.Format("update {0} set Name='{1}', Brand='{2}', Category='{3}', Price='{4}' where Id={5}",
+                nameTable ,textBoxProductName.Text, textBoxProductBrand.Text, comboBoxProductCategrry.Text, textBoxProductPrice.Text, lastSelectetKey);
             ExecuteQuerry(querry);
 
             //Produktliste anzeigen
-            ShowProducts();
+            ShowTable();
         }
 
         private void btnProductClear_Click(object sender, EventArgs e)
@@ -80,16 +84,17 @@ namespace ProNaturBiomarkt_GmbH
 
         private void btnProductDelete_Click(object sender, EventArgs e)
         {
-            if (lastSelectetProductKey == 0)
+            if (lastSelectetKey == 0)
             {
-                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!");
+                MessageBox.Show("Bitte wähle zuerst ein Produkt aus!",
+                    "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             else
             {
-            //In die Datenbank speichern
-            string querry = string.Format("delete from Products where Id={0};", lastSelectetProductKey);
+            //In die Datenbank "Products" speichern
+            string querry = string.Format("delete from {0} where Id={1};", nameTable, lastSelectetKey);
             ExecuteQuerry(querry);
             }
 
@@ -97,18 +102,29 @@ namespace ProNaturBiomarkt_GmbH
             ClearAllFields();
 
             //Produktliste aktualisieren und anzeigen
-            ShowProducts();
+            ShowTable();
         }
-
-        private void ShowProducts()
+        private void btnProductBackToMainMenu_Click(object sender, EventArgs e)
         {
-//          ##  Produktliste anzeigen ##
+            MainMenuScreen mainMenuScreen = new MainMenuScreen();
+            mainMenuScreen.Show();
+
+            this.Hide();
+        }
+        //BUTTONS
+        //########################################################################################################################
+
+        //########################################################################################################################
+        //DATENBANKHANDLING
+        private void ShowTable()
+        {
+            //##  Datenbanktabelle anzeigen ##
 
             //Datenbank öffnen
             databaseConnection.Open();
 
             //Abfrage definieren und übergeben
-            string query = "select * from Products";
+            string query = string.Format("select * from {0}", nameTable);
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, databaseConnection);
 
             //Abfrage starten
@@ -133,6 +149,23 @@ namespace ProNaturBiomarkt_GmbH
             sqlCommand.ExecuteNonQuery();
             databaseConnection.Close();
         }
+        //DATENBANKHANDLING
+        //########################################################################################################################
+
+
+        //########################################################################################################################
+        //WINDOWHANDLING
+        private void productsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Auswahl einlesen
+            lastSelectetKey = (int)productsDGV.SelectedRows[0].Cells[0].Value;
+            textBoxProductName.Text = productsDGV.SelectedRows[0].Cells[1].Value.ToString();
+            textBoxProductBrand.Text = productsDGV.SelectedRows[0].Cells[2].Value.ToString();
+            comboBoxProductCategrry.Text = productsDGV.SelectedRows[0].Cells[3].Value.ToString();
+            textBoxProductPrice.Text = productsDGV.SelectedRows[0].Cells[4].Value.ToString();
+
+            lblId.Text = productsDGV.SelectedRows[0].Cells[0].Value.ToString();
+        }
 
         private void ClearAllFields()
         {
@@ -142,24 +175,10 @@ namespace ProNaturBiomarkt_GmbH
             textBoxProductPrice.Text = "";
             comboBoxProductCategrry.Text = "";
             comboBoxProductCategrry.SelectedItem = null;
-        }
 
-        private void productsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //Auswahl einlesen
-            lastSelectetProductKey = (int)productsDGV.SelectedRows[0].Cells[0].Value;
-            textBoxProductName.Text = productsDGV.SelectedRows[0].Cells[1].Value.ToString();
-            textBoxProductBrand.Text = productsDGV.SelectedRows[0].Cells[2].Value.ToString();
-            comboBoxProductCategrry.Text = productsDGV.SelectedRows[0].Cells[3].Value.ToString();
-            textBoxProductPrice.Text = productsDGV.SelectedRows[0].Cells[4].Value.ToString();
+            lblId.Text = "";
         }
-
-        private void btnProductBackToMainMenu_Click(object sender, EventArgs e)
-        {
-            MainMenuScreen mainMenuScreen = new MainMenuScreen();
-            mainMenuScreen.Show();
-
-            this.Hide();
-        }
+        //WINDOWHANDLING
+        //########################################################################################################################
     }
 }

@@ -42,6 +42,7 @@
             this.btnProductDelete = new System.Windows.Forms.Button();
             this.productsDGV = new System.Windows.Forms.DataGridView();
             this.btnProductBackToMainMenu = new System.Windows.Forms.Button();
+            this.lblId = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productsDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,12 +232,27 @@
             this.btnProductBackToMainMenu.UseVisualStyleBackColor = false;
             this.btnProductBackToMainMenu.Click += new System.EventHandler(this.btnProductBackToMainMenu_Click);
             // 
+            // lblId
+            // 
+            this.lblId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblId.BackColor = System.Drawing.Color.Transparent;
+            this.lblId.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblId.ForeColor = System.Drawing.Color.White;
+            this.lblId.Location = new System.Drawing.Point(738, 13);
+            this.lblId.Name = "lblId";
+            this.lblId.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblId.Size = new System.Drawing.Size(49, 13);
+            this.lblId.TabIndex = 15;
+            this.lblId.Text = "0";
+            this.lblId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Produkte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ProNaturBiomarkt_GmbH.Properties.Resources.ImgBgProducts;
             this.ClientSize = new System.Drawing.Size(799, 461);
+            this.Controls.Add(this.lblId);
             this.Controls.Add(this.btnProductBackToMainMenu);
             this.Controls.Add(this.productsDGV);
             this.Controls.Add(this.btnProductDelete);
@@ -278,5 +294,6 @@
         private System.Windows.Forms.Button btnProductDelete;
         private System.Windows.Forms.DataGridView productsDGV;
         private System.Windows.Forms.Button btnProductBackToMainMenu;
+        private System.Windows.Forms.Label lblId;
     }
 }

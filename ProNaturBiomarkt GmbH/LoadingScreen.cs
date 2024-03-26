@@ -28,9 +28,10 @@ namespace ProNaturBiomarkt_GmbH
 
         private void loadingBarTimer_Tick(object sender, EventArgs e)
         {
-            loadingBarValue += 10;
+            loadingBarValue += 1;
+            int loadingBarAnzeige = loadingBarValue * 2;
 
-            lblLoadingProgress.Text = loadingBarValue.ToString() + "%";
+            lblLoadingProgress.Text = loadingBarAnzeige.ToString() + "%";
             loadingPrograssBar.Value = loadingBarValue;
 
             if(loadingBarValue >= loadingPrograssBar.Maximum)

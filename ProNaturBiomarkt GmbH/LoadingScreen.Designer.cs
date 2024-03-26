@@ -34,6 +34,7 @@
             this.lblLoadingProgress = new System.Windows.Forms.Label();
             this.loadingBarTimer = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,7 +42,8 @@
             // 
             this.loadingPrograssBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.loadingPrograssBar.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.loadingPrograssBar.Location = new System.Drawing.Point(161, 308);
+            this.loadingPrograssBar.Location = new System.Drawing.Point(13, 308);
+            this.loadingPrograssBar.Maximum = 50;
             this.loadingPrograssBar.Name = "loadingPrograssBar";
             this.loadingPrograssBar.Size = new System.Drawing.Size(468, 23);
             this.loadingPrograssBar.TabIndex = 0;
@@ -50,7 +52,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(365, 292);
+            this.label1.Location = new System.Drawing.Point(216, 292);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 1;
@@ -60,7 +62,7 @@
             // 
             this.lblLoadingProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblLoadingProgress.AutoSize = true;
-            this.lblLoadingProgress.Location = new System.Drawing.Point(416, 292);
+            this.lblLoadingProgress.Location = new System.Drawing.Point(267, 292);
             this.lblLoadingProgress.Name = "lblLoadingProgress";
             this.lblLoadingProgress.Size = new System.Drawing.Size(21, 13);
             this.lblLoadingProgress.TabIndex = 2;
@@ -74,27 +76,41 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox1.Image = global::ProNaturBiomarkt_GmbH.Properties.Resources.GroceryImg;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 61);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(776, 264);
+            this.pictureBox1.Size = new System.Drawing.Size(468, 202);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(235, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Produkt- und Kundenverwaltung";
             // 
             // LoadingScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(800, 341);
+            this.ClientSize = new System.Drawing.Size(497, 341);
             this.ControlBox = false;
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblLoadingProgress);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.loadingPrograssBar);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LoadingScreen";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProNatur Biomarkt GmbH";
             this.Load += new System.EventHandler(this.LoadingScreen_Load);
@@ -111,6 +127,7 @@
         private System.Windows.Forms.Label lblLoadingProgress;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer loadingBarTimer;
+        private System.Windows.Forms.Label label2;
     }
 }
 

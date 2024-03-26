@@ -185,7 +185,6 @@
             // lblCustomerNumber
             // 
             this.lblCustomerNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCustomerNumber.AutoSize = true;
             this.lblCustomerNumber.BackColor = System.Drawing.Color.Transparent;
             this.lblCustomerNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCustomerNumber.ForeColor = System.Drawing.Color.White;
@@ -194,7 +193,7 @@
             this.lblCustomerNumber.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblCustomerNumber.Size = new System.Drawing.Size(49, 13);
             this.lblCustomerNumber.TabIndex = 14;
-            this.lblCustomerNumber.Text = "000000";
+            this.lblCustomerNumber.Text = "0";
             this.lblCustomerNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnCustomerDelete
