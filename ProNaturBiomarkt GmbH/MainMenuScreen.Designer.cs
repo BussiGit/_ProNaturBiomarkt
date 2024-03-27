@@ -89,7 +89,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(590, 310);
+            this.ClientSize = new System.Drawing.Size(582, 310);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.btnCustomerManagement);
             this.Controls.Add(this.btnBill);

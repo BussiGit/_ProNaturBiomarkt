@@ -33,6 +33,7 @@ namespace ProNaturBiomarkt_GmbH
         private void btnProductSave_Click(object sender, EventArgs e)
         {
 
+            //Überprüfen, ob alle Eingaben vollständig sind
             if(textBoxProductName.Text == "" 
                 || textBoxProductBrand.Text == "" 
                 || comboBoxProductCategrry.Text == "" 
@@ -42,6 +43,9 @@ namespace ProNaturBiomarkt_GmbH
                     "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
+            //überprüfen, ob der eingegebene Preis in einen Float konvertiert werden kann
+            //XXXXXXXXXXXXXXX
 
             //save product name in database
             string productName = textBoxProductName.Text;
@@ -61,12 +65,16 @@ namespace ProNaturBiomarkt_GmbH
 
         private void btnProductEdit_Click(object sender, EventArgs e)
         {
+            //Überprüfen, ob ein Produkt ausgewählt wurde
             if (lastSelectetKey == 0)
             {
                 MessageBox.Show("Bitte wähle zuerst ein Produkt aus!",
                     "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
+            //überprüfen, ob der eingegebene Preis in einen Float konvertiert werden kann
+            //XXXXXXXXXXXXXXX
 
             string querry = string.Format("update {0} set Name='{1}', Brand='{2}', Category='{3}', Price='{4}' where Id={5}",
                 nameTable ,textBoxProductName.Text, textBoxProductBrand.Text, comboBoxProductCategrry.Text, textBoxProductPrice.Text, lastSelectetKey);
@@ -84,6 +92,7 @@ namespace ProNaturBiomarkt_GmbH
 
         private void btnProductDelete_Click(object sender, EventArgs e)
         {
+            //Überprüfen, ob ein Produkt ausgewählt wurde
             if (lastSelectetKey == 0)
             {
                 MessageBox.Show("Bitte wähle zuerst ein Produkt aus!",
