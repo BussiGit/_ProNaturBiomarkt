@@ -10,6 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Data.SQLite;
+using Dapper;
+using System.Configuration;
+
+
 namespace ProNaturBiomarkt_GmbH
 {
     public partial class Produkte : Form
@@ -19,7 +24,8 @@ namespace ProNaturBiomarkt_GmbH
         private string nameTable = "Products";         //Name der Tabelle in der Datenbank
 
         //Connection-String
-        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
+//        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
+        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=.\Pro-Natur-Biomarkt GmbH.db; Integrated Security=True; Connect Timeout=30");
         public Produkte()
         {
             InitializeComponent();
