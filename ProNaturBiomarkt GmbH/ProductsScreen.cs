@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Data.SQLite;
-using Dapper;
-using System.Configuration;
 
 
 namespace ProNaturBiomarkt_GmbH
@@ -20,18 +18,19 @@ namespace ProNaturBiomarkt_GmbH
     public partial class Produkte : Form
     {
         //Variable für die zuletzt ausgewählte ID
-        private int lastSelectetKey;                   //ID des aktuell ausgewählten Datensatzes
-        private string nameTable = "Products";         //Name der Tabelle in der Datenbank
+        private int lastSelectetKey;                    //ID des aktuell ausgewählten Datensatzes
+        private string nameTable = "Products";          //Name der Tabelle in der Datenbank
 
-        //Connection-String
-//        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=E:\Dokumente II\Visual Studio 2022\SQL Server\Pro-Natur-Biomarkt GmbH.mdf; Integrated Security=True; Connect Timeout=30");
-        private SqlConnection databaseConnection = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=.\Pro-Natur-Biomarkt GmbH.db; Integrated Security=True; Connect Timeout=30");
+        //Datenbankhandling
+        SQLiteConnection sqliteConnection = CreateConnection();
+
+
         public Produkte()
         {
             InitializeComponent();
 
             //Produktliste anzeigen
-            ShowTable();
+            ShowTable(sqliteConnection);
         }
 
         //########################################################################################################################
@@ -65,7 +64,7 @@ namespace ProNaturBiomarkt_GmbH
             ExecuteQuerry(querry);
   
             //Produktliste anzeigen
-            ShowTable();
+            ShowTable(sqliteConnection);
             ClearAllFields();
         }
 
@@ -87,7 +86,7 @@ namespace ProNaturBiomarkt_GmbH
             ExecuteQuerry(querry);
 
             //Produktliste anzeigen
-            ShowTable();
+            ShowTable(sqliteConnection);
         }
 
         private void btnProductClear_Click(object sender, EventArgs e)
@@ -117,7 +116,7 @@ namespace ProNaturBiomarkt_GmbH
             ClearAllFields();
 
             //Produktliste aktualisieren und anzeigen
-            ShowTable();
+            ShowTable(sqliteConnection);
         }
         private void btnProductBackToMainMenu_Click(object sender, EventArgs e)
         {
@@ -131,20 +130,58 @@ namespace ProNaturBiomarkt_GmbH
 
         //########################################################################################################################
         //DATENBANKHANDLING
-        private void ShowTable()
+        
+        //***
+        //Connection aufbauen
+        static SQLiteConnection CreateConnection()
+        {
+            SQLiteConnection sqliteConnection = new SQLiteConnection("Data Source = Pro-Natur-Biomarkt GmbH.db; Version 3; New = True; Compress = true;");
+
+            //Datenbank öffnen und zurückgeben
+            try 
+            {
+                sqliteConnection.Open();
+            }
+            catch
+            {
+                //=> es besteht keine Datenbank - sie muss hier erstellt werden
+            }
+            return sqliteConnection;
+        }
+
+
+        private void ShowTable(SQLiteConnection Connection)
         {
             //##  Datenbanktabelle anzeigen ##
 
-            //Datenbank öffnen
-            databaseConnection.Open();
+            SQLiteDataReader sqliteReader;
+            SQLiteCommand sqliteCommand;
 
             //Abfrage definieren und übergeben
-            string query = string.Format("select * from {0}", nameTable);
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, databaseConnection);
+            string readSQL = string.Format("SELECT * FROM {0}", nameTable);
 
+            sqliteCommand = Connection.CreateCommand();
+            sqliteCommand.CommandText = readSQL;
+            sqliteReader = sqliteCommand.ExecuteReader();
+
+            //??
+            sqliteReader.Read();
+
+            
+            
+            
+            
+            
+            
+            
+            
             //Abfrage starten
             DataSet dataSet = new DataSet();
-            sqlDataAdapter.Fill(dataSet);
+            
+            
+            
+            //??
+            sqliteReader.Fill(dataSet);
 
             //Abgefragte Daten der Tabelle 0 in das DataGridView (DGV) eintragen
             productsDGV.DataSource = dataSet.Tables[0];
@@ -152,8 +189,7 @@ namespace ProNaturBiomarkt_GmbH
             //erste Spalte ausblenden
             productsDGV.Columns[0].Visible = false;
 
-            //Datenbank schließen
-            databaseConnection.Close();
+
         }
 
         private void ExecuteQuerry(string querry)
